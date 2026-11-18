@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fifth Down</title>
+  <meta name="description" content="Guess the football formation in five tries.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <button id="helpBtn" class="icon-btn" type="button" aria-label="How to play">?</button>
+    <div class="brand">
+      <h1>Fifth <span>Down</span></h1>
+      <p class="sub">Name the formation in five snaps</p>
+    </div>
+    <button id="statsBtn" class="icon-btn" type="button" aria-label="Statistics">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 20V11M12 20V4M19 20v-6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <div class="mode-bar">
+      <div class="seg" role="group" aria-label="Game mode">
+        <button type="button" class="seg-btn" data-mode="daily">Daily</button>
+        <button type="button" class="seg-btn" data-mode="practice">Practice</button>
+      </div>
+      <span id="puzzleLabel" class="puzzle-label"></span>
+    </div>
+
+    <section class="field-wrap" aria-label="Field">
+      <svg id="field" role="img" aria-label="Formation grid"></svg>
+      <div class="field-meta">
+        <span id="litCount"></span>
+        <label class="toggle"><input type="checkbox" id="ghostToggle" checked> Show misses from all guesses</label>
+      </div>
+    </section>
+
+    <section id="result" class="result" hidden aria-live="polite"></section>
+
+    <form id="guessForm" class="guess-form" autocomplete="off">
+      <div class="input-wrap">
+        <input id="guessInput" type="text" spellcheck="false" role="combobox"
+               aria-autocomplete="list" aria-controls="suggestions" aria-expanded="false"
+               aria-label="Formation name">
+        <ul id="suggestions" class="suggestions" role="listbox" hidden></ul>
+      </div>
+      <button type="submit" id="guessBtn" class="btn primary">Snap</button>
+    </form>
+
+    <section id="guesses" class="guesses" aria-label="Your guesses"></section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="helpDialog" aria-labelledby="helpTitle">
+    <button type="button" class="close" aria-label="Close">×</button>
+    <h3 id="helpTitle">How to play</h3>
+    <p>A secret formation is hidden on the grid. It could be an <b>offense</b> or a <b>defense</b>. You get <b>5 guesses</b> to name it.</p>
+    <ul class="rules">
+      <li>Type a formation and press <b>Snap</b>. It gets drawn on the grid: <b class="o">O</b> for offense, <b class="x">X</b> for defense.</li>
+      <li>Any player standing in the <b>same square</b> as the same kind of player in the answer <span class="lit-word">lights up</span> and stays lit.</li>
+      <li>Players in the wrong spot stay on the grid <span class="faded-word">faded</span>, from every guess so far, so you can see which squares are ruled out.</li>
+      <li>Guess 4-3 when the answer is 4-4 and the four down linemen light up, plus any corners or safeties in the same spots.</li>
+    </ul>
+    <h3>The playbook</h3>
+    <p class="hint">Hover a name for a description and other accepted names.</p>
+    <div id="playbook" class="playbook"></div>
+  </dialog>
+
+  <dialog id="statsDialog" aria-labelledby="statsTitle">
+    <button type="button" class="close" aria-label="Close">×</button>
+    <h3 id="statsTitle">Daily stats</h3>
+    <div id="statNums" class="stat-nums"></div>
+    <h4>Guess distribution</h4>
+    <div id="statDist" class="stat-dist"></div>
+  </dialog>
+
+  <script src="formations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
